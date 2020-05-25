@@ -30,10 +30,12 @@ function* managePart() {
 
     const savedData = yield select(getSavedData)
 
-    //Adds the total deviation for each control
-    const part = newPartData.map(feature => ({
-        ...feature,
-        data: feature.data.map(control => {
+    //Calculates de total deviation and statuses
+    const part = newPartData.map(feature => {
+
+        let featureStatus = 0
+
+        const data = feature.data.map(control => {
             let prevTotDev = 0
             savedData.forEach(dataSet => {
                 prevTotDev += dataSet
@@ -42,9 +44,21 @@ function* managePart() {
                     .find(setControl => setControl.id === control.id)
                     .dev
             })
-            return {...control, totDev: +((prevTotDev + control.dev).toFixed(2))}
+            const totDev = +((prevTotDev + control.dev).toFixed(2))
+
+            const status = totDev < 0.25
+                ? 0
+                : totDev < 0.50
+                    ? 1
+                    : 2
+            
+            featureStatus = status > featureStatus ? status : featureStatus
+
+            return {...control, totDev, status }
         })
-        })
+
+        return {...feature, status: featureStatus, data}
+        }
     )
 
     //Removes the older saved dataSet when reaches max
