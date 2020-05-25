@@ -1,4 +1,4 @@
-# ThermoCo Test App
+# ABB Test App
 
 ### Installation
 
