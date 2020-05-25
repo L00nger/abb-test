@@ -7,13 +7,15 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Icon from '@material-ui/core/Icon';
+
+import { colors, icons } from '../theme'
 
 const useStyles = makeStyles({
     table: {
         minWidth: 200,
     },
 })
-
 
 export default function FeatureTable({ data = [] }) {
     const classes = useStyles();
@@ -37,7 +39,13 @@ export default function FeatureTable({ data = [] }) {
                             </TableCell>
                             <TableCell align="right">{row.dev}</TableCell>
                             <TableCell align="right">{row.totDev}</TableCell>
-                            <TableCell align="right">{row.status}</TableCell>
+                            <TableCell align="right">
+                                <Icon
+                                    style={{color: colors[row.status]}}
+                                >
+                                    {icons[row.status]}
+                                </Icon>
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
