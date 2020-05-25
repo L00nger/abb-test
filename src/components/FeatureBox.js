@@ -1,7 +1,9 @@
 import React from 'react'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
-import CardContent from '@material-ui/core/CardContent';
+import CardContent from '@material-ui/core/CardContent'
+
+import Table from '../components/Table'
 
 function FeatureBox({ feature }) {
 
@@ -11,7 +13,7 @@ function FeatureBox({ feature }) {
         <Card>
             <CardHeader title={`Feature ${id}`} />
             <CardContent>
-                Feature Content
+                <Table data={data} />
             </CardContent>
         </Card>
     )
