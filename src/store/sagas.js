@@ -6,7 +6,7 @@ import {
     UPDATE_SAVED_DATA
 } from "./actionTypes"
 
-import { defaultSettings, DELAY, NDEVOUT } from '../config'
+import { PART_SETTINGS, DELAY, NDEVOUT, STATUS_VALUES } from '../config'
 import getPartData from '../api/getPartData'
 
 const getSavedData = store => store.savedData
@@ -26,7 +26,7 @@ function* runRequestInitPart() {
 
 
 function* managePart() {
-    const newPartData = yield getPartData(defaultSettings)
+    const newPartData = yield getPartData(PART_SETTINGS)
 
     const savedData = yield select(getSavedData)
 
@@ -37,6 +37,7 @@ function* managePart() {
 
         const data = feature.data.map(control => {
             let prevTotDev = 0
+
             savedData.forEach(dataSet => {
                 prevTotDev += dataSet
                     .find(setFeature => setFeature.id === feature.id)
@@ -44,17 +45,18 @@ function* managePart() {
                     .find(setControl => setControl.id === control.id)
                     .dev
             })
+
             const totDev = +((prevTotDev + control.dev).toFixed(2))
 
-            const status = totDev < 0.25
+            const controlStatus = totDev < STATUS_VALUES.WARN
                 ? 0
-                : totDev < 0.50
+                : totDev < STATUS_VALUES.ERROR
                     ? 1
                     : 2
             
-            featureStatus = status > featureStatus ? status : featureStatus
+            featureStatus = controlStatus > featureStatus ? controlStatus : featureStatus
 
-            return {...control, totDev, status }
+            return { ...control, totDev, status: controlStatus }
         })
 
         return {...feature, status: featureStatus, data}
