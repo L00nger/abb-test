@@ -1,6 +1,6 @@
 import {
     SET_PART_DATA,
-    SAVE_DATA
+    UPDATE_SAVED_DATA
 } from "./actionTypes"
 
 function reducer(
@@ -10,7 +10,7 @@ function reducer(
     }, action) {
     switch (action.type) {
 
-        case SAVE_DATA:
+        case UPDATE_SAVED_DATA:
             return {
                ...store, savedData: action.data
             }

@@ -3,7 +3,7 @@ import { all, fork, takeLatest, put, call, select, delay } from "redux-saga/effe
 import {
     REQUEST_INIT_PART,
     SET_PART_DATA,
-    SAVE_DATA
+    UPDATE_SAVED_DATA
 } from "./actionTypes"
 
 import { defaultSettings, DELAY, NDEVOUT } from '../config'
@@ -30,6 +30,7 @@ function* managePart() {
 
     const savedData = yield select(getSavedData)
 
+    //Adds the total deviation for each control
     const part = newPartData.map(feature => ({
         ...feature,
         data: feature.data.map(control => {
@@ -46,8 +47,10 @@ function* managePart() {
         })
     )
 
-    yield put({ type: SAVE_DATA, data: [...savedData, part] })
-
+    //Removes the older saved dataSet when reaches max
+    const slicedData =  savedData.length === NDEVOUT ? savedData.slice(1) : savedData
+   
+    yield put({ type: UPDATE_SAVED_DATA, data: [...slicedData, part] })
     yield put({ type: SET_PART_DATA, part })
 
     yield delay(DELAY)
