@@ -2,11 +2,11 @@ import React from 'react'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
-import Table from '../components/Table'
+import Table from './Table'
 import { Icon } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
-import { colors, icons } from '../theme'
+import { colors, icons } from '../../theme'
 
 
 
@@ -19,9 +19,6 @@ function FeatureBox({ feature }) {
         headerRoot: {
             background: colors[status],
             color: 'white'
-        },
-        cardRoot: {
-            maxWidth: 400
         }
     })
 
@@ -29,7 +26,6 @@ function FeatureBox({ feature }) {
 
     return (
         <Card
-            classes={{ root: classes.cardRoot }}
             variant='outlined'
         >
             <CardHeader

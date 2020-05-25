@@ -1,5 +1,5 @@
 import React from 'react'
-import FeatureBox from '../components/FeatureBox'
+import FeatureBox from '../components/FeatureBox/FeatureBox'
 
 function HomeLayout({ part }) {
 

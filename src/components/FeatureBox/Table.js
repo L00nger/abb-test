@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Icon from '@material-ui/core/Icon';
 
-import { colors, icons } from '../theme'
+import { colors, icons } from '../../theme'
 
 const useStyles = makeStyles({
     table: {

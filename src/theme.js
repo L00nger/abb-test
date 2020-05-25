@@ -29,7 +29,8 @@ export const theme = createMuiTheme({
         },
         MuiCard: {
             root: {
-                margin: 10
+                margin: 10,
+                minWidth: 400
             }
         },
         MuiTypography: {
