@@ -9,8 +9,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { colors, icons } from '../../theme'
 
 
-
-
 function FeatureBox({ feature }) {
 
     const { id, data, status } = feature

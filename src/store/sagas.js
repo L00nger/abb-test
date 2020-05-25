@@ -30,7 +30,7 @@ function* managePart() {
 
     const savedData = yield select(getSavedData)
 
-    //Calculates de total deviation and statuses
+    //Calculates de total deviation for each and statuses for both controls and features
     const part = newPartData.map(feature => {
 
         let featureStatus = 0
@@ -54,6 +54,7 @@ function* managePart() {
                     ? 1
                     : 2
             
+            //Sets the feature status as the worst status of any control on that feature
             featureStatus = controlStatus > featureStatus ? controlStatus : featureStatus
 
             return { ...control, totDev, status: controlStatus }
