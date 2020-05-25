@@ -6,7 +6,8 @@ import {
 
 function reducer(
     store = { 
-        part: []
+        part: [],
+        savedData: []
     }, action) {
     switch (action.type) {
 
